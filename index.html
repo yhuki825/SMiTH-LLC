@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>合同会社SMiTH ｜ 熱を、かたちに。</title>
+<meta name="description" content="合同会社SMiTH（大阪・梅田）は、ネットショップ運営コンサルティング、SNSマーケティングコンサルティング、システム開発を手がける鍛冶場です。">
+<meta property="og:title" content="合同会社SMiTH ｜ 熱を、かたちに。">
+<meta property="og:description" content="大阪・梅田の鍛冶場。EC運営・SNSマーケティング・システム開発。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0E1420">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E1420'/%3E%3Cpath d='M6 20 L26 12 L28 16 L8 24 Z' fill='%23E0703A'/%3E%3C/svg%3E">
+
+<style>
+/* ============================================================
+   合同会社SMiTH ─ Brand Site
+   Concept : 鍛冶場（FORGE）─ 熱を、かたちに。
+   Palette : 鉄紺 / 鋼 / 炉の琥珀 / 火花 / 生成り
+   ============================================================ */
+
+:root{
+  --ink:#0E1420;
+  --ink-2:#141C2B;
+  --steel:#232E40;
+  --steel-line:rgba(233,228,220,.13);
+  --ember:#E0703A;
+  --ember-deep:#B0431C;
+  --spark:#FFC773;
+  --paper:#E9E4DC;
+  --paper-dim:rgba(233,228,220,.62);
+  --paper-faint:rgba(233,228,220,.38);
+
+  --f-jp-serif:"Shippori Mincho B1",serif;
+  --f-jp-sans:"Zen Kaku Gothic New",sans-serif;
+  --f-latin:"Cormorant Garamond",serif;
+  --f-mono:"IBM Plex Mono",monospace;
+
+  --pad:clamp(20px,5vw,64px);
+  --max:1240px;
+  --sec:clamp(96px,13vw,180px);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--f-jp-sans);
+  font-weight:400;
+  line-height:1.95;
+  letter-spacing:.045em;
+  overflow-x:hidden;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{ /* 鉄肌のノイズ */
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--ember);color:#0E1420;}
+:focus-visible{outline:2px solid var(--spark);outline-offset:4px;}
+
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--pad);position:relative;z-index:1;}
+
+/* ---------- 火床レール（スクロール進行） ---------- */
+.rail{position:fixed;left:0;top:0;width:3px;height:100vh;background:rgba(233,228,220,.07);z-index:60;}
+.rail__fill{position:absolute;left:0;top:0;width:100%;height:0;
+  background:linear-gradient(180deg,#334154 0%,var(--ember-deep) 28%,var(--ember) 66%,var(--spark) 100%);
+  box-shadow:0 0 14px rgba(224,112,58,.55);}
+.rail__dot{position:absolute;left:50%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;
+  background:var(--spark);box-shadow:0 0 16px 3px rgba(255,199,115,.8);top:0;}
+@media (max-width:800px){.rail{width:2px;} .rail__dot{width:7px;margin-left:-3.5px;}}
+
+/* ---------- ヘッダー ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;padding:20px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .5s ease,padding .5s ease,border-color .5s ease;
+  border-bottom:1px solid transparent;}
+.hdr.is-stuck{background:rgba(14,20,32,.86);backdrop-filter:blur(14px);padding:13px var(--pad);border-bottom-color:var(--steel-line);}
+.logo{display:flex;align-items:baseline;gap:12px;}
+.logo__mark{font-family:var(--f-latin);font-size:1.5rem;letter-spacing:.34em;font-weight:600;color:var(--paper);}
+.logo__mark em{font-style:normal;color:var(--ember);}
+.logo__sub{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.22em;color:var(--paper-faint);}
+@media (max-width:600px){.logo__sub{display:none;}}
+
+.nav{display:flex;gap:34px;align-items:center;}
+.nav a{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.2em;color:var(--paper-dim);position:relative;padding:6px 0;transition:color .3s;}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--ember);transition:width .4s cubic-bezier(.2,.7,.3,1);}
+.nav a:hover{color:var(--paper);}
+.nav a:hover::after{width:100%;}
+
+.burger{display:none;width:44px;height:44px;background:none;border:1px solid var(--steel-line);border-radius:2px;cursor:pointer;position:relative;}
+.burger span{position:absolute;left:12px;width:20px;height:1px;background:var(--paper);transition:transform .4s,opacity .3s;}
+.burger span:nth-child(1){top:17px;}
+.burger span:nth-child(2){top:22px;}
+.burger span:nth-child(3){top:27px;}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5px) rotate(45deg);}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
+
+@media (max-width:900px){
+  .burger{display:block;}
+  .nav{position:fixed;inset:0;background:rgba(11,16,26,.97);backdrop-filter:blur(8px);
+    flex-direction:column;justify-content:center;gap:30px;
+    opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s;}
+  .nav.is-open{opacity:1;visibility:visible;}
+  .nav a{font-size:.95rem;letter-spacing:.3em;}
+  .nav a span{display:block;font-family:var(--f-jp-serif);font-size:.7rem;letter-spacing:.2em;color:var(--paper-faint);text-align:center;margin-top:4px;}
+}
+.nav a span{display:none;}
+@media (max-width:900px){.nav a span{display:block;}}
+
+/* ---------- ヒーロー ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
+.hero__bg{position:absolute;inset:0;z-index:0;}
+.hero__bg img{width:100%;height:100%;object-fit:cover;opacity:.34;filter:grayscale(.4) contrast(1.15);
+  transform:scale(1.08);animation:heroDrift 24s ease-in-out infinite alternate;}
+@keyframes heroDrift{from{transform:scale(1.08) translate3d(0,0,0);}to{transform:scale(1.16) translate3d(-1.5%,-1.5%,0);}}
+.hero__bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 72% 55%,rgba(224,112,58,.24) 0%,rgba(14,20,32,.55) 45%,var(--ink) 78%),
+             linear-gradient(180deg,rgba(14,20,32,.85) 0%,rgba(14,20,32,.2) 40%,var(--ink) 100%);}
+#embers{position:absolute;inset:0;z-index:1;pointer-events:none;}
+
+.hero__inner{position:relative;z-index:2;width:100%;max-width:var(--max);margin-inline:auto;
+  padding:140px var(--pad) 110px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+
+.hero__vert{writing-mode:vertical-rl;font-family:var(--f-jp-serif);font-weight:600;
+  font-size:clamp(2.4rem,5.6vw,4.6rem);line-height:1.42;letter-spacing:.19em;
+  text-shadow:0 0 40px rgba(0,0,0,.6);}
+.hero__vert .hot{color:var(--spark);text-shadow:0 0 26px rgba(255,199,115,.45);}
+.hero__vert span{display:inline-block;opacity:0;transform:translateY(-26px);}
+.hero__vert.is-in span{animation:dropIn .9s cubic-bezier(.16,.84,.32,1) forwards;}
+@keyframes dropIn{to{opacity:1;transform:translateY(0);}}
+
+.hero__side{max-width:400px;padding-bottom:8px;}
+.hero__eyebrow{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.34em;color:var(--ember);margin:0 0 22px;}
+.hero__latin{font-family:var(--f-latin);font-size:clamp(2.6rem,6vw,4rem);letter-spacing:.2em;line-height:1;margin:0 0 20px;font-weight:300;}
+.hero__latin em{font-style:normal;color:var(--ember);}
+.hero__lead{font-size:.9rem;color:var(--paper-dim);line-height:2.15;margin:0;}
+.hero__scroll{position:absolute;left:var(--pad);bottom:30px;z-index:3;font-family:var(--f-mono);font-size:.6rem;
+  letter-spacing:.26em;color:var(--paper-faint);display:flex;align-items:center;gap:12px;}
+.hero__scroll i{display:block;width:56px;height:1px;background:linear-gradient(90deg,var(--ember),transparent);
+  animation:pull 2.6s ease-in-out infinite;transform-origin:left;}
+@keyframes pull{0%,100%{transform:scaleX(.35);}50%{transform:scaleX(1);}}
+
+@media (max-width:860px){
+  .hero__inner{flex-direction:column;align-items:flex-start;padding-top:120px;gap:44px;}
+  .hero__vert{writing-mode:horizontal-tb;font-size:clamp(2rem,10vw,3rem);letter-spacing:.1em;line-height:1.55;}
+  .hero__scroll{display:none;}
+}
+
+/* ---------- 共通見出し ---------- */
+.sec{padding-block:var(--sec);position:relative;}
+.eyebrow{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.32em;color:var(--ember);
+  display:flex;align-items:center;gap:14px;margin:0 0 26px;}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--ember);}
+.h2{font-family:var(--f-jp-serif);font-weight:600;font-size:clamp(1.7rem,3.5vw,2.6rem);
+  line-height:1.6;letter-spacing:.1em;margin:0 0 28px;}
+.h2 .latin{display:block;font-family:var(--f-latin);font-size:.5em;letter-spacing:.3em;
+  color:var(--paper-faint);font-weight:300;margin-bottom:14px;}
+.body-txt{font-size:.94rem;color:var(--paper-dim);line-height:2.3;max-width:62ch;}
+.body-txt + .body-txt{margin-top:1.4em;}
+.body-txt strong{color:var(--paper);font-weight:500;}
+
+/* 出現アニメーション */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.3,1),transform 1s cubic-bezier(.2,.7,.3,1);}
+.rv.is-in{opacity:1;transform:none;}
+.rv[data-d="1"]{transition-delay:.12s;}
+.rv[data-d="2"]{transition-delay:.24s;}
+.rv[data-d="3"]{transition-delay:.36s;}
+
+/* ---------- CONCEPT ---------- */
+.concept{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);}
+.concept__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,96px);align-items:center;}
+.concept__quote{font-family:var(--f-jp-serif);font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:2.1;
+  letter-spacing:.12em;margin:0 0 34px;}
+.concept__quote b{color:var(--spark);font-weight:600;}
+.concept__fig{position:relative;}
+.concept__fig img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.5) contrast(1.1);}
+.concept__fig::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(200deg,rgba(224,112,58,.28),transparent 55%);mix-blend-mode:screen;}
+.concept__cap{position:absolute;left:-14px;bottom:22px;background:var(--ink);padding:9px 16px;
+  font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:var(--paper-faint);
+  border-left:2px solid var(--ember);}
+@media (max-width:860px){.concept__grid{grid-template-columns:1fr;}}
+
+/* ---------- SERVICE ---------- */
+.svc__head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:40px;flex-wrap:wrap;}
+.svc__head .body-txt{max-width:38ch;margin:0;font-size:.86rem;}
+.svc__head .body-txt b{color:var(--paper);font-weight:500;}
+
+/* 一覧マップ（3語で分かる索引） */
+.svc__map{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--steel-line);
+  border:1px solid var(--steel-line);list-style:none;padding:0;margin:0 0 56px;}
+.svc__map li{background:var(--ink);padding:26px 24px;display:flex;align-items:center;gap:18px;transition:background .5s;}
+.svc__map li:hover{background:var(--ink-2);}
+.svc__map svg{width:30px;height:30px;flex:none;stroke:var(--ember);fill:none;stroke-width:1.4;
+  stroke-linecap:round;stroke-linejoin:round;}
+.svc__map .t{display:block;font-family:var(--f-jp-serif);font-size:1.05rem;font-weight:600;letter-spacing:.09em;line-height:1.5;}
+.svc__map .s{display:block;font-size:.7rem;color:var(--paper-faint);margin-top:6px;letter-spacing:.06em;}
+@media (max-width:760px){.svc__map{grid-template-columns:1fr;margin-bottom:40px;} .svc__map li{padding:20px;}}
+
+.svc__list{display:grid;gap:1px;background:var(--steel-line);border-block:1px solid var(--steel-line);}
+.svc{background:var(--ink);display:grid;
+  grid-template-columns:140px minmax(0,1fr) 300px;
+  grid-template-areas:"no main fig" "sp flow flow";
+  column-gap:clamp(24px,4vw,56px);row-gap:clamp(26px,3vw,38px);
+  padding:clamp(34px,4.6vw,58px) 0;align-items:start;position:relative;transition:background .55s ease;}
+.svc:hover{background:var(--ink-2);}
+.svc__no{grid-area:no;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.22em;color:var(--ember);padding-top:6px;}
+.svc__no b{display:block;font-family:var(--f-latin);font-size:2.4rem;font-weight:300;color:var(--paper-faint);
+  letter-spacing:.04em;line-height:1;margin-bottom:10px;transition:color .5s;}
+.svc:hover .svc__no b{color:var(--ember);}
+.svc__main{grid-area:main;}
+.svc__ttl{font-family:var(--f-jp-serif);font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:600;
+  letter-spacing:.1em;margin:0 0 8px;line-height:1.6;}
+.svc__en{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.26em;color:var(--paper-faint);margin:0 0 22px;}
+
+/* ひとことで言うと */
+.svc__lead{font-family:var(--f-jp-serif);font-size:clamp(1.02rem,1.8vw,1.2rem);line-height:1.95;
+  letter-spacing:.07em;color:var(--paper);margin:0;padding:2px 0 2px 20px;border-left:2px solid var(--ember);}
+.svc__lead span{display:block;font-family:var(--f-mono);font-size:.55rem;letter-spacing:.24em;
+  color:var(--ember);margin-bottom:11px;}
+.svc__lead em{font-style:normal;color:var(--spark);}
+
+/* こんなとき → やること → こうなる */
+.svc__flow{grid-area:flow;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--steel-line);border:1px solid var(--steel-line);}
+.svc__cell{background:var(--ink);padding:24px 22px;position:relative;}
+.svc__cell + .svc__cell::before{content:"";position:absolute;left:-7px;top:30px;width:13px;height:13px;
+  background:var(--ink);border-right:1px solid var(--ember);border-top:1px solid var(--ember);
+  transform:rotate(45deg);}
+.svc__cellno{font-family:var(--f-mono);font-size:.54rem;letter-spacing:.24em;color:var(--paper-faint);margin:0 0 9px;}
+.svc__cell h4{font-family:var(--f-jp-sans);font-size:.92rem;font-weight:700;letter-spacing:.11em;margin:0 0 14px;}
+.svc__cell:last-child h4{color:var(--spark);}
+.svc__cell:last-child .svc__cellno{color:var(--ember);}
+.svc__cell ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;}
+.svc__cell li{font-size:.8rem;color:var(--paper-dim);line-height:1.85;padding-left:16px;position:relative;}
+.svc__cell li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:var(--ember);}
+
+/* できること */
+.svc__tagttl{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.24em;color:var(--paper-faint);margin:26px 0 12px;}
+.svc__tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0;}
+.svc__tags li{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;color:var(--paper-dim);
+  border:1px solid var(--steel-line);padding:5px 11px;border-radius:1px;}
+
+/* くわしく（折りたたみ） */
+.svc__more{margin-top:24px;border-top:1px solid var(--steel-line);padding-top:16px;}
+.svc__more summary{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;color:var(--paper-faint);
+  cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:10px;transition:color .4s;}
+.svc__more summary::-webkit-details-marker{display:none;}
+.svc__more summary::after{content:"+";font-family:var(--f-latin);font-size:1rem;color:var(--ember);line-height:1;}
+.svc__more[open] summary::after{content:"–";}
+.svc__more summary:hover{color:var(--paper);}
+.svc__txt{font-size:.86rem;color:var(--paper-dim);line-height:2.2;margin:14px 0 0;}
+
+.svc__fig{grid-area:fig;overflow:hidden;}
+.svc__fig img{width:100%;aspect-ratio:16/11;object-fit:cover;filter:grayscale(.65) contrast(1.05);
+  transition:transform 1.1s cubic-bezier(.2,.7,.3,1),filter .8s;}
+.svc:hover .svc__fig img{transform:scale(1.06);filter:grayscale(.2) contrast(1.1);}
+
+@media (max-width:1000px){
+  .svc{grid-template-columns:96px minmax(0,1fr);grid-template-areas:"no main" "fig fig" "flow flow";}
+  .svc__fig img{aspect-ratio:16/8;}
+}
+@media (max-width:680px){
+  .svc__flow{grid-template-columns:1fr;}
+  .svc__cell + .svc__cell::before{left:calc(50% - 7px);top:-7px;transform:rotate(135deg);}
+}
+@media (max-width:560px){
+  .svc{grid-template-columns:1fr;grid-template-areas:"no" "main" "fig" "flow";row-gap:20px;}
+  .svc__no{display:flex;align-items:baseline;gap:12px;padding-top:0;}
+  .svc__no b{margin:0;font-size:1.7rem;}
+}
+
+/* ---------- FORGE（署名インタラクション） ---------- */
+.forge{background:var(--ink-2);position:relative;overflow:hidden;}
+.forge::before{content:"";position:absolute;left:50%;top:50%;width:min(120vw,1100px);height:min(120vw,1100px);
+  transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(224,112,58,.16),transparent 62%);
+  opacity:var(--glow,0);transition:opacity .5s;pointer-events:none;}
+.forge__stage{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:100px var(--pad) 60px;text-align:center;}
+.forge__svg{width:min(100%,620px);height:auto;filter:drop-shadow(0 0 var(--blur,0px) rgba(255,170,90,.85));}
+.forge__label{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.3em;color:var(--ember);margin:38px 0 12px;}
+.forge__name{font-family:var(--f-jp-serif);font-size:clamp(1.5rem,4vw,2.3rem);font-weight:600;letter-spacing:.2em;margin:0 0 14px;}
+.forge__desc{font-size:.86rem;color:var(--paper-dim);max-width:34ch;margin:0 auto;line-height:2.1;min-height:5.2em;}
+.forge__temp{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:var(--paper-faint);margin-top:26px;}
+.forge__steps{display:flex;gap:0;justify-content:center;margin-top:22px;width:min(100%,560px);}
+.forge__steps i{flex:1;height:2px;background:var(--steel-line);position:relative;}
+.forge__steps i.on{background:var(--ember);}
+.forge__track{height:300vh;}
+
+/* ---------- MESSAGE ---------- */
+.msg{position:relative;}
+.msg__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(36px,6vw,80px);align-items:center;}
+.msg__body{writing-mode:vertical-rl;font-family:var(--f-jp-serif);font-size:1.02rem;line-height:2.5;
+  letter-spacing:.14em;height:min(58vh,470px);color:var(--paper-dim);
+  padding-left:10px;border-right:1px solid var(--steel-line);padding-right:34px;}
+.msg__body p{margin:0 0 0 1.6em;}
+.msg__body b{color:var(--paper);font-weight:600;}
+.msg__sign{margin-top:36px;display:flex;align-items:baseline;gap:16px;}
+.msg__sign small{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;color:var(--paper-faint);}
+.msg__sign strong{font-family:var(--f-jp-serif);font-size:1.3rem;font-weight:600;letter-spacing:.22em;}
+.msg__fig img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(.55) contrast(1.12);}
+@media (max-width:860px){
+  .msg__grid{grid-template-columns:1fr;}
+  .msg__body{writing-mode:horizontal-tb;height:auto;border-right:0;border-left:1px solid var(--steel-line);
+    padding:0 0 0 24px;font-size:.95rem;line-height:2.3;}
+  .msg__body p{margin:0 0 1.5em;}
+  .msg__fig{order:-1;}
+  .msg__fig img{aspect-ratio:16/10;}
+}
+
+/* ---------- FIELD ---------- */
+.field{background:linear-gradient(180deg,var(--ink-2),var(--ink));}
+.field__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;
+  background:var(--steel-line);border:1px solid var(--steel-line);margin-top:56px;}
+.field__cell{background:var(--ink);padding:34px 26px;transition:background .5s;}
+.field__cell:hover{background:var(--ink-2);}
+.field__cell h3{font-family:var(--f-jp-serif);font-size:1.02rem;font-weight:600;letter-spacing:.1em;margin:0 0 10px;}
+.field__cell p{font-size:.8rem;color:var(--paper-dim);line-height:2;margin:0;}
+.field__cell span{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.2em;color:var(--ember);display:block;margin-bottom:14px;}
+
+/* ---------- COMPANY ---------- */
+.co__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:start;}
+.co__table{width:100%;border-collapse:collapse;margin-top:8px;}
+.co__table th,.co__table td{text-align:left;vertical-align:top;padding:19px 0;border-bottom:1px solid var(--steel-line);font-size:.86rem;}
+.co__table th{width:9.5em;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;color:var(--paper-faint);
+  font-weight:400;padding-top:23px;white-space:nowrap;}
+.co__table td{color:var(--paper-dim);line-height:1.95;}
+.chk{display:inline-block;font-family:var(--f-mono);font-size:.54rem;letter-spacing:.12em;color:#0E1420;
+  background:var(--spark);padding:2px 7px;border-radius:1px;margin-left:8px;vertical-align:middle;white-space:nowrap;}
+.co__map{position:relative;border:1px solid var(--steel-line);overflow:hidden;}
+.co__map img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(.7) contrast(1.1) brightness(.8);}
+.co__pin{position:absolute;left:50%;top:47%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  background:var(--ember);box-shadow:0 0 0 0 rgba(224,112,58,.6);animation:ping 2.6s infinite;}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(224,112,58,.55);}70%{box-shadow:0 0 0 26px rgba(224,112,58,0);}100%{box-shadow:0 0 0 0 rgba(224,112,58,0);}}
+.co__addr{position:absolute;left:0;bottom:0;right:0;background:linear-gradient(0deg,rgba(14,20,32,.95),transparent);
+  padding:44px 22px 20px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;color:var(--paper-dim);line-height:1.9;}
+@media (max-width:860px){.co__grid{grid-template-columns:1fr;} .co__table th{width:7.5em;}}
+
+/* ---------- フッター ---------- */
+.ft{border-top:1px solid var(--steel-line);padding:64px 0 40px;background:var(--ink);}
+.ft__top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;}
+.ft__logo{font-family:var(--f-latin);font-size:2.6rem;letter-spacing:.3em;font-weight:300;line-height:1;}
+.ft__logo em{font-style:normal;color:var(--ember);}
+.ft__tag{font-family:var(--f-jp-serif);font-size:.86rem;letter-spacing:.2em;color:var(--paper-faint);margin-top:14px;}
+.ft__nav{display:flex;gap:26px;flex-wrap:wrap;}
+.ft__nav a{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.2em;color:var(--paper-faint);transition:color .3s;}
+.ft__nav a:hover{color:var(--ember);}
+.ft__bottom{margin-top:52px;padding-top:22px;border-top:1px solid var(--steel-line);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;color:var(--paper-faint);}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;}
+  .rv{opacity:1;transform:none;}
+  .hero__vert span{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- 火床レール：スクロール進行を炉の熱として表示 -->
+<div class="rail" aria-hidden="true"><div class="rail__fill" id="railFill"><span class="rail__dot"></span></div></div>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" aria-label="合同会社SMiTH ホーム">
+    <span class="logo__mark">SM<em>i</em>TH</span>
+    <span class="logo__sub">FORGE / OSAKA UMEDA</span>
+  </a>
+  <nav class="nav" id="nav" aria-label="メインナビゲーション">
+    <a href="#concept">CONCEPT<span>鍛冶場の思想</span></a>
+    <a href="#service">SERVICE<span>事業内容</span></a>
+    <a href="#forge">PROCESS<span>鍛つ工程</span></a>
+    <a href="#message">MESSAGE<span>代表挨拶</span></a>
+    <a href="#company">COMPANY<span>会社概要</span></a>
+  </nav>
+  <button class="burger" id="burger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero__bg">
+    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=2000&q=80"
+         alt="炉の火花が散る鍛冶場のイメージ"
+         onerror="this.onerror=null;this.src='https://picsum.photos/2000/1200?grayscale';">
+  </div>
+  <canvas id="embers" aria-hidden="true"></canvas>
+
+  <div class="hero__inner">
+    <h1 class="hero__vert" id="heroVert">
+      <span>熱</span><span>を</span><span>、</span><span class="hot">か</span><span class="hot">た</span><span class="hot">ち</span><span>に</span><span>。</span>
+    </h1>
+    <div class="hero__side">
+      <p class="hero__eyebrow">SM<span>i</span>TH LLC ─ OSAKA</p>
+      <p class="hero__latin">SM<em>i</em>TH</p>
+      <p class="hero__lead">
+        商いには熱がある。売りたいという熱、伝えたいという熱。<br>
+        その熱を冷ます前に打ち、道具のかたちにするのが、わたしたちの仕事です。
+      </p>
+    </div>
+  </div>
+  <p class="hero__scroll"><i></i>SCROLL / 火を入れる</p>
+</section>
+
+<!-- ============ CONCEPT ============ -->
+<section class="sec concept" id="concept">
+  <div class="wrap">
+    <div class="concept__grid">
+      <div class="rv">
+        <p class="eyebrow">CONCEPT</p>
+        <h2 class="h2"><span class="latin">THE FORGE</span>鉄は、打たれてはじめて刃になる。</h2>
+        <p class="concept__quote">
+          いい素材を持っているだけでは、<br><b>まだ何も切れない。</b>
+        </p>
+        <p class="body-txt">
+          SMiTH（スミス）は、鍛冶屋を意味します。鍛冶屋は、無から物を生みません。持ち込まれた鉄を見立て、火を入れ、鎚を振り、使い手の手に合うかたちへ収めていく。<strong>素材はいつも、依頼主の側にあります。</strong>
+        </p>
+        <p class="body-txt">
+          商品力、店の空気、これまで積み上げた顧客との関係。事業にはすでに鉄がある。それが売上というかたちに届いていないなら、足りないのは素材ではなく、熱と鎚です。わたしたちはEC・SNS・システムという三本の鎚を持ち、大阪・梅田の一室から、事業のかたちを打ち出しています。
+        </p>
+        <p class="body-txt">
+          梅田はかつて低湿地を埋め立てて生まれた土地で、その名残が地名に残ると言われます。何もなかった場所に人が集い、商いの火が灯り、街になった。<strong>そういう場所に、鍛冶場を構えています。</strong>
+        </p>
+      </div>
+      <figure class="concept__fig rv" data-d="1">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80"
+             alt="赤熱した鉄を鎚で打つ職人の手元" loading="lazy"
+             onerror="this.onerror=null;this.src='https://picsum.photos/1000/1250?grayscale';">
+        <figcaption class="concept__cap">HEAT × HAMMER × TIMING</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE ============ -->
+<section class="sec" id="service">
+  <div class="wrap">
+    <div class="svc__head rv">
+      <div>
+        <p class="eyebrow">SERVICE</p>
+        <h2 class="h2" style="margin:0;"><span class="latin">THREE HAMMERS</span>三本の鎚</h2>
+      </div>
+      <p class="body-txt">
+        かんたんに言えば、<b>ネットで「売る」「広める」、そのための「仕組みをつくる」</b>の三つです。<br>
+        一つだけでも、三つまとめてでもご相談いただけます。
+      </p>
+    </div>
+
+    <ul class="svc__map rv" data-d="1">
+      <li>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h4l3.2 14h13.4l2.8-10H10"/><circle cx="13" cy="26" r="1.8"/><circle cx="23" cy="26" r="1.8"/></svg>
+        <span><span class="t">ネットで売る</span><span class="s">01 ／ ネットショップ運営コンサルティング</span></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 13v6h5l8 5V8l-8 5H6z"/><path d="M23 11.5a6.5 6.5 0 0 1 0 9"/><path d="M26.5 8a11 11 0 0 1 0 16"/></svg>
+        <span><span class="t">ネットで広める</span><span class="s">02 ／ SNSマーケティングコンサルティング</span></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="4.2"/><path d="M16 4v3.6M16 24.4V28M28 16h-3.6M7.6 16H4M24.5 7.5l-2.5 2.5M10 22l-2.5 2.5M24.5 24.5L22 22M10 10L7.5 7.5"/></svg>
+        <span><span class="t">仕組みをつくる</span><span class="s">03 ／ システム開発</span></span>
+      </li>
+    </ul>
+
+    <div class="svc__list">
+      <article class="svc rv">
+        <p class="svc__no"><b>01</b>HAMMER</p>
+        <div class="svc__main">
+          <h3 class="svc__ttl">ネットショップ運営コンサルティング</h3>
+          <p class="svc__en">EC OPERATION ─ 売場を鍛える</p>
+          <p class="svc__lead">
+            <span>ひとことで言うと</span>
+            ネットショップを、<em>広告を止めても売れる状態</em>にするまで、一緒に運営します。
+          </p>
+          <p class="svc__tagttl">できること</p>
+          <ul class="svc__tags">
+            <li>モール／自社EC運営</li><li>商品ページ設計</li><li>CVR改善</li>
+            <li>販促カレンダー</li><li>受注・在庫オペレーション</li><li>リピート施策</li>
+          </ul>
+          <details class="svc__more">
+            <summary>くわしく読む</summary>
+            <p class="svc__txt">
+              出店したのに動かない、広告を止めると売上が止まる。原因は商品ではなく、売場の設計にあることがほとんどです。商品ページ、価格と送料の設計、レビュー、リピート導線、在庫と受注のオペレーション。売れ続ける売場の形まで、運営に伴走しながら整えます。
+            </p>
+          </details>
+        </div>
+        <figure class="svc__fig">
+          <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1100&q=80"
+               alt="ネットショップの商品と発送準備の様子" loading="lazy"
+               onerror="this.onerror=null;this.src='https://picsum.photos/1100/760?grayscale';">
+        </figure>
+        <div class="svc__flow">
+          <div class="svc__cell">
+            <p class="svc__cellno">CASE</p>
+            <h4>こんなとき</h4>
+            <ul>
+              <li>出店したのに、ほとんど売れない</li>
+              <li>広告を止めると、売上も止まる</li>
+              <li>受注と在庫の手作業が限界</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">WORK</p>
+            <h4>やること</h4>
+            <ul>
+              <li>商品ページ・価格・送料を設計し直す</li>
+              <li>レビューとリピートの導線をつくる</li>
+              <li>受注／在庫の手順を整える</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">RESULT</p>
+            <h4>こうなる</h4>
+            <ul>
+              <li>広告に頼らなくても売れる売場になる</li>
+              <li>売れる理由と数字の見方が、社内に残る</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc rv">
+        <p class="svc__no"><b>02</b>HAMMER</p>
+        <div class="svc__main">
+          <h3 class="svc__ttl">SNSマーケティングコンサルティング</h3>
+          <p class="svc__en">SOCIAL MARKETING ─ 熱を伝える</p>
+          <p class="svc__lead">
+            <span>ひとことで言うと</span>
+            SNSを、<em>社内で続けられる集客の仕組み</em>に変えます。
+          </p>
+          <p class="svc__tagttl">できること</p>
+          <ul class="svc__tags">
+            <li>アカウント設計</li><li>コンテンツ企画</li><li>投稿運用体制</li>
+            <li>指標設計・分析</li><li>広告連携</li><li>インハウス化支援</li>
+          </ul>
+          <details class="svc__more">
+            <summary>くわしく読む</summary>
+            <p class="svc__txt">
+              SNSは拡散の装置ではなく、熱を保つ炉です。誰に、どんな顔で、どの熱量で話しかけるか。アカウントの人格設計から投稿の型、運用体制、数字の読み方までを組み立て、社内で回し続けられる状態を目標にします。
+            </p>
+          </details>
+        </div>
+        <figure class="svc__fig">
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1100&q=80"
+               alt="スマートフォンでSNSを運用する様子" loading="lazy"
+               onerror="this.onerror=null;this.src='https://picsum.photos/1100/761?grayscale';">
+        </figure>
+        <div class="svc__flow">
+          <div class="svc__cell">
+            <p class="svc__cellno">CASE</p>
+            <h4>こんなとき</h4>
+            <ul>
+              <li>何を投稿すればいいか分からない</li>
+              <li>続けているのに、売上につながらない</li>
+              <li>担当者まかせで、社内に型がない</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">WORK</p>
+            <h4>やること</h4>
+            <ul>
+              <li>誰に何を伝えるか、アカウントの人格を決める</li>
+              <li>迷わず作れる投稿の型をつくる</li>
+              <li>見るべき数字と、判断の基準を決める</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">RESULT</p>
+            <h4>こうなる</h4>
+            <ul>
+              <li>投稿の内容で迷わなくなる</li>
+              <li>外注に頼らず、社内で回り続ける</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc rv">
+        <p class="svc__no"><b>03</b>HAMMER</p>
+        <div class="svc__main">
+          <h3 class="svc__ttl">システム開発</h3>
+          <p class="svc__en">SYSTEM DEVELOPMENT ─ 道具を打つ</p>
+          <p class="svc__lead">
+            <span>ひとことで言うと</span>
+            手作業や合わない既製ツールを、<em>御社専用の仕組み</em>に置き換えます。
+          </p>
+          <p class="svc__tagttl">できること</p>
+          <ul class="svc__tags">
+            <li>Webシステム開発</li><li>業務効率化ツール</li><li>API連携</li>
+            <li>コーポレートサイト構築</li><li>保守・改修</li>
+          </ul>
+          <details class="svc__more">
+            <summary>くわしく読む</summary>
+            <p class="svc__txt">
+              既製の道具が手に合わないなら、打てばいい。Webシステム、業務ツール、EC周辺の連携開発まで、現場の手順を見てから設計します。作って終わりにせず、使いながら直せる状態で引き渡すことを前提に組み立てます。
+            </p>
+          </details>
+        </div>
+        <figure class="svc__fig">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1100&q=80"
+               alt="システム開発のコード画面" loading="lazy"
+               onerror="this.onerror=null;this.src='https://picsum.photos/1100/762?grayscale';">
+        </figure>
+        <div class="svc__flow">
+          <div class="svc__cell">
+            <p class="svc__cellno">CASE</p>
+            <h4>こんなとき</h4>
+            <ul>
+              <li>エクセルの転記や手作業が減らない</li>
+              <li>既製ツールに、業務のほうを合わせている</li>
+              <li>システム同士がつながっていない</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">WORK</p>
+            <h4>やること</h4>
+            <ul>
+              <li>現場の手順を見てから設計する</li>
+              <li>必要な分だけの業務ツールを開発する</li>
+              <li>既存サービスとのAPI連携をつなぐ</li>
+            </ul>
+          </div>
+          <div class="svc__cell">
+            <p class="svc__cellno">RESULT</p>
+            <h4>こうなる</h4>
+            <ul>
+              <li>その作業のための時間がなくなる</li>
+              <li>使いながら直せる形で手元に残る</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORGE：署名インタラクション ============ 
+<section class="forge" id="forge">
+  <div class="forge__track" id="forgeTrack">
+    <div class="forge__stage">
+      <p class="eyebrow" style="justify-content:center;">PROCESS ─ 鍛つ四工程</p>
+      <svg class="forge__svg" id="forgeSvg" viewBox="0 0 400 210" role="img" aria-labelledby="forgeTitle forgeDesc">
+        <title id="forgeTitle">鍛造の四工程を表す図</title>
+        <desc id="forgeDesc">鉄の塊が、熱せられ、打たれ、刃のかたちに仕上がるまでをスクロールに合わせて表現しています。</desc>
+        <line x1="20" y1="176" x2="380" y2="176" stroke="rgba(233,228,220,.16)" stroke-width="1"/>
+        <polygon id="forgeShape" points="120,70 280,60 290,140 270,150 130,150 110,130" fill="#2A3242"/>
+        <g id="forgeSparks" fill="#FFC773" opacity="0"></g>
+      </svg>
+      <p class="forge__label" id="forgeStep">STAGE 01 / ASSESS</p>
+      <h2 class="forge__name" id="forgeName">見立てる</h2>
+      <p class="forge__desc" id="forgeDesc2">事業の鉄を確かめます。何が資産で、どこが売上に届いていないのか。打つ前に、見ることに時間を使います。</p>
+      <div class="forge__steps" aria-hidden="true">
+        <i data-s="0" class="on"></i><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i>
+      </div>
+      <p class="forge__temp" id="forgeTemp">TEMP ─── 20℃</p>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- ============ MESSAGE ============ -->
+<section class="sec msg" id="message">
+  <div class="wrap">
+    <div class="msg__grid">
+      <div class="rv">
+        <p class="eyebrow">MESSAGE</p>
+        <h2 class="h2"><span class="latin">FROM THE SMITH</span>代表挨拶</h2>
+        <!-- ▼要確認：以下の代表挨拶は文案（ドラフト）です。公開前に必ず代表者ご本人の加筆・修正・承認をお願いします。 -->
+        <div class="msg__body">
+          <p>ご縁のあるすべての皆さまへ。</p>
+          <p>相談をいただく事業者の方は、たいてい「うちには何もない」とおっしゃいます。けれども話を伺うと、そんなことはありません。長く選ばれてきた商品、現場で磨かれた段取り、続いてきたお客さまとの関係。<b>鉄は、すでにそこにあります。</b></p>
+          <p>足りていないのは、それを打つ熱と、振るう鎚のほうです。ECの売場を整えること、SNSで熱を絶やさず伝えること、必要な道具を自分たちで打つこと。わたしたちはその三つを持って、事業のかたちが決まるところまでご一緒します。</p>
+          <p>打ち終えたあと、鎚を握るのはお客さま自身です。手を離れても回り続ける状態をつくることを、いつも仕事の目標に置いています。</p>
+        </div>
+        <p class="msg__sign">
+          <small>合同会社SMiTH　代表社員</small>
+          <strong>小泉 拓也</strong>
+        </p>
+      </div>
+      <figure class="msg__fig rv" data-d="1">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
+             alt="事業の現場で打ち合わせを行う様子" loading="lazy"
+             onerror="this.onerror=null;this.src='https://picsum.photos/900/1200?grayscale';">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIELD ============ -->
+<section class="sec field">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">FIELD</p>
+      <h2 class="h2" style="margin-bottom:0;"><span class="latin">WHERE WE WORK</span>わたしたちが立つ場所</h2>
+    </div>
+    <div class="field__grid rv" data-d="1">
+      <div class="field__cell">
+        <span>01</span>
+        <h3>これから店を開く</h3>
+        <p>出店の準備段階から、売場の設計と運営の型づくりをご一緒します。</p>
+      </div>
+      <div class="field__cell">
+        <span>02</span>
+        <h3>売上が伸び悩む</h3>
+        <p>数字が止まっている箇所を切り分け、打つ順番を決めてから手を入れます。</p>
+      </div>
+      <div class="field__cell">
+        <span>03</span>
+        <h3>運用を社内に戻したい</h3>
+        <p>外注しきりの運用を、社内で回せる体制へ移していく支援を行います。</p>
+      </div>
+      <div class="field__cell">
+        <span>04</span>
+        <h3>道具が手に合わない</h3>
+        <p>既製ツールで無理をしている業務を、必要な形のシステムへ置き換えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANY ============ -->
+<section class="sec" id="company">
+  <div class="wrap">
+    <div class="co__grid">
+      <div class="rv">
+        <p class="eyebrow">COMPANY</p>
+        <h2 class="h2"><span class="latin">COMPANY PROFILE</span>会社概要</h2>
+        <table class="co__table">
+          <tbody>
+            <tr><th>商号</th><td>合同会社SMiTH</td></tr>
+            <tr><th>代表者</th><td>代表社員　小泉 拓也</td></tr>
+            <tr><th>所在地</th><td>〒530-0001<br>大阪府大阪市北区梅田1丁目2番2号<br>大阪駅前第2ビル12-12</td></tr>
+            <tr><th>事業内容</th><td>ネットショップ運営コンサルティング<br>SNSマーケティングコンサルティング<br>システム開発</td></tr>
+            <!--
+            <tr><th>設立</th><td>—<span class="chk">要確認</span></td></tr>
+            <tr><th>資本金</th><td>—<span class="chk">要確認</span></td></tr>
+            <tr><th>従業員数</th><td>—<span class="chk">要確認</span></td></tr>
+            <tr><th>営業時間</th><td>—<span class="chk">要確認</span></td></tr>
+            -->
+          </tbody>
+        </table>
+      </div>
+      <div class="co__map rv" data-d="1">
+        <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=1200&q=80"
+             alt="大阪・梅田周辺の街並み" loading="lazy"
+             onerror="this.onerror=null;this.src='https://picsum.photos/1000/1000?grayscale';">
+        <span class="co__pin" aria-hidden="true"></span>
+        <p class="co__addr">OSAKA / UMEDA<br>大阪駅前第2ビル 12F ─ 12-12</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft__top">
+      <div>
+        <p class="ft__logo">SM<em>i</em>TH</p>
+        <p class="ft__tag">熱を、かたちに。</p>
+      </div>
+      <nav class="ft__nav" aria-label="フッターナビゲーション">
+        <a href="#concept">CONCEPT</a>
+        <a href="#service">SERVICE</a>
+        <a href="#forge">PROCESS</a>
+        <a href="#message">MESSAGE</a>
+        <a href="#company">COMPANY</a>
+        <a href="#top">TOP</a>
+      </nav>
+    </div>
+    <div class="ft__bottom">
+      <span>合同会社SMiTH ─ 〒530-0001 大阪府大阪市北区梅田1丁目2番2号 大阪駅前第2ビル12-12</span>
+      <span>&copy; <span id="yr">2026</span> SMiTH LLC.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ---- ヘッダー / ハンバーガー ---- */
+  var hdr = document.getElementById("hdr"),
+      nav = document.getElementById("nav"),
+      burger = document.getElementById("burger");
+
+  burger.addEventListener("click", function(){
+    var open = nav.classList.toggle("is-open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  nav.addEventListener("click", function(e){
+    if(e.target.closest("a") && nav.classList.contains("is-open")){
+      nav.classList.remove("is-open");
+      burger.setAttribute("aria-expanded","false");
+      document.body.style.overflow = "";
+    }
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && nav.classList.contains("is-open")){ burger.click(); }
+  });
+
+  /* ---- 火床レール & ヘッダー状態 ---- */
+  var railFill = document.getElementById("railFill"), ticking = false;
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(y / h, 1) : 0;
+    railFill.style.height = (p * 100) + "%";
+    hdr.classList.toggle("is-stuck", y > 60);
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  /* ---- スクロール出現 ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add("is-in"); io.unobserve(en.target); }
+    });
+  }, {threshold:.16, rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".rv").forEach(function(el){ io.observe(el); });
+
+  /* ---- ヒーロー見出しの落下 ---- */
+  var hv = document.getElementById("heroVert");
+  Array.prototype.forEach.call(hv.querySelectorAll("span"), function(s,i){
+    s.style.animationDelay = (0.35 + i * 0.075) + "s";
+  });
+  setTimeout(function(){ hv.classList.add("is-in"); }, 120);
+
+  /* ---- ヒーロー：舞い上がる火の粉 ---- */
+  var cv = document.getElementById("embers");
+  if(cv && !reduce){
+    var ctx = cv.getContext("2d"), parts = [], W = 0, H = 0, raf = null, alive = true;
+    function size(){
+      var r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = r.width; H = r.height;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function spawn(x, y, burst){
+      return {
+        x: x, y: y,
+        vx: (Math.random()-.5) * (burst ? 2.6 : .45),
+        vy: burst ? (Math.random()-.75) * 3.2 : -(0.25 + Math.random()*0.75),
+        r: (burst ? .7 : .5) + Math.random()*1.5,
+        life: 1, decay: 0.0035 + Math.random()*0.006
+      };
+    }
+    function seed(){
+      parts = [];
+      var n = Math.round(W / 16);
+      for(var i=0;i<n;i++){ var p = spawn(Math.random()*W, H*0.35 + Math.random()*H*0.75, false); p.life = Math.random(); parts.push(p); }
+    }
+    var strike = 0;
+    function tick(){
+      if(!alive) return;
+      ctx.clearRect(0,0,W,H);
+      strike++;
+      if(strike % 150 === 0){ // 鎚を打つリズムで火花が散る
+        var bx = W*0.62 + (Math.random()-.5)*W*0.16, by = H*0.68;
+        for(var k=0;k<26;k++){ parts.push(spawn(bx, by, true)); }
+      }
+      for(var i = parts.length - 1; i >= 0; i--){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy; p.vy -= 0.004; p.vx *= 0.995;
+        p.life -= p.decay;
+        if(p.life <= 0 || p.y < -20){
+          parts.splice(i,1);
+          if(parts.length < W/16){ parts.push(spawn(Math.random()*W, H + 10, false)); }
+          continue;
+        }
+        var a = Math.max(p.life,0);
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255," + Math.round(150 + 70*a) + "," + Math.round(70 + 80*a) + "," + (a*0.85) + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    size(); seed(); tick();
+    window.addEventListener("resize", function(){ size(); seed(); });
+    // ヒーローが画面外なら停止（省電力）
+    var hio = new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){ if(!alive){ alive = true; tick(); } }
+      else { alive = false; if(raf) cancelAnimationFrame(raf); }
+    }, {threshold:0});
+    hio.observe(document.getElementById("top"));
+  }
+
+  /* ---- 署名インタラクション：鍛造ステージ ---- */
+  var track = document.getElementById("forgeTrack"),
+      shape = document.getElementById("forgeShape"),
+      svg   = document.getElementById("forgeSvg"),
+      sparkG= document.getElementById("forgeSparks"),
+      forge = document.getElementById("forge");
+
+  var STAGES = [
+    { pts:[120,70,280,60,290,140,270,150,130,150,110,130], col:[42,50,66],
+      step:"STAGE 01 / ASSESS", name:"見立てる", temp:20,
+      desc:"事業の鉄を確かめます。何が資産で、どこが売上に届いていないのか。打つ前に、見ることに時間を使います。" },
+    { pts:[100,72,285,58,300,138,275,152,120,152,95,128], col:[142,51,22],
+      step:"STAGE 02 / HEAT", name:"火を入れる", temp:820,
+      desc:"戦略に熱を通します。誰に何を届けるのかを言葉にし、EC・SNS・システムのどれをどの順で使うかを決めます。" },
+    { pts:[60,80,300,62,340,100,300,138,90,140,60,120], col:[224,112,58],
+      step:"STAGE 03 / FORGE", name:"打つ", temp:1180,
+      desc:"実装と運用の期間です。売場を組み直し、投稿を回し、必要な道具をつくる。手を動かしながら形を寄せていきます。" },
+    { pts:[40,92,300,70,370,100,300,130,60,112,40,108], col:[255,199,115],
+      step:"STAGE 04 / FINISH", name:"仕上げ、渡す", temp:1450,
+      desc:"数字と手順を整え、社内で回せる状態にして引き渡します。鎚を握るのは、最後はお客さま自身です。" }
+  ];
+
+  var els = {
+    step: document.getElementById("forgeStep"),
+    name: document.getElementById("forgeName"),
+    desc: document.getElementById("forgeDesc2"),
+    temp: document.getElementById("forgeTemp"),
+    bars: Array.prototype.slice.call(document.querySelectorAll(".forge__steps i"))
+  };
+
+  function lerp(a,b,t){ return a + (b-a)*t; }
+
+  // 火花（仕上げ工程で散らす）
+  var sparkPts = "";
+  for(var s=0;s<14;s++){
+    var sx = 60 + Math.random()*300, sy = 60 + Math.random()*90;
+    sparkPts += '<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+(0.9+Math.random()*1.8).toFixed(1)+'"/>';
+  }
+  sparkG.innerHTML = sparkPts;
+
+  var lastIdx = -1;
+  function renderForge(){
+    if(!track) return;
+    var rect = track.getBoundingClientRect();
+    var total = rect.height - window.innerHeight;
+    var prog = total > 0 ? (-rect.top) / total : 0;
+    prog = Math.max(0, Math.min(1, prog));
+
+    var seg = prog * (STAGES.length - 1);
+    var i = Math.min(Math.floor(seg), STAGES.length - 2);
+    var t = seg - i;
+    var A = STAGES[i], B = STAGES[i+1];
+
+    var pts = [];
+    for(var n=0;n<A.pts.length;n++){ pts.push(lerp(A.pts[n], B.pts[n], t).toFixed(1)); }
+    var out = [];
+    for(var m=0;m<pts.length;m+=2){ out.push(pts[m] + "," + pts[m+1]); }
+    shape.setAttribute("points", out.join(" "));
+
+    var r = Math.round(lerp(A.col[0], B.col[0], t)),
+        g = Math.round(lerp(A.col[1], B.col[1], t)),
+        b = Math.round(lerp(A.col[2], B.col[2], t));
+    shape.setAttribute("fill", "rgb(" + r + "," + g + "," + b + ")");
+    svg.style.setProperty("--blur", (2 + prog * 34).toFixed(1) + "px");
+    forge.style.setProperty("--glow", (0.12 + prog * 0.88).toFixed(2));
+    sparkG.setAttribute("opacity", prog > 0.66 ? ((prog - 0.66) / 0.34 * 0.9).toFixed(2) : "0");
+
+    var temp = Math.round(lerp(A.temp, B.temp, t));
+    els.temp.textContent = "TEMP ─── " + temp + "℃";
+
+    var idx = Math.round(seg);
+    if(idx !== lastIdx){
+      lastIdx = idx;
+      var S = STAGES[idx];
+      els.step.textContent = S.step;
+      els.name.textContent = S.name;
+      els.desc.textContent = S.desc;
+      els.bars.forEach(function(bar, bi){ bar.classList.toggle("on", bi <= idx); });
+    }
+  }
+  var fTick = false;
+  window.addEventListener("scroll", function(){
+    if(!fTick){ fTick = true; requestAnimationFrame(function(){ renderForge(); fTick = false; }); }
+  }, {passive:true});
+  window.addEventListener("resize", renderForge);
+  renderForge();
+})();
+</script>
+</body>
+</html>
